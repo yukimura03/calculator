@@ -194,9 +194,9 @@
                     </view>
                     <connections>
                         <outlet property="label" destination="4bt-LH-n59" id="Rxu-St-TjR"/>
-                        <outlet property="num1" destination="tDo-ED-tQr" id="ePd-Ev-yYE"/>
-                        <outlet property="num2" destination="NtC-Xn-oVt" id="Gjs-FG-grr"/>
-                        <outlet property="sign" destination="tHa-kA-euh" id="Jgj-5J-BEu"/>
+                        <outlet property="num1_label" destination="tDo-ED-tQr" id="bsC-iz-01R"/>
+                        <outlet property="num2_label" destination="NtC-Xn-oVt" id="6a2-Ba-V8T"/>
+                        <outlet property="sign_label" destination="tHa-kA-euh" id="of7-Wd-o6D"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
