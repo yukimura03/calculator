@@ -22,7 +22,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var button_minus: UIButton!
     @IBOutlet weak var button_plus: UIButton!
     
-    
     @IBOutlet weak var label: UILabel!
     
     var num1:String = ""
@@ -62,20 +61,19 @@ class ViewController: UIViewController {
             button_division.backgroundColor = UIColor.white
             
             //num1をリセットしてから数字を入れる準備
-            num1 = ""
+            num2 = ""
             selectSign = false
         }
         
-        num1 += sender.titleLabel!.text!
-        num1_label.text = num1
-        label.text = num1
-
+        num2 += sender.titleLabel!.text!
+        num2_label.text = num2
+        label.text = num2
     }
     
     //算術記号に合わせて計算する
     func calc() {
-        if num2 == "" {
-            num2 = num1
+        if num1 == "" {
+            num1 = num2
         } else {
             if sign == "+" {
                 num1 = String(Double(num1)! + Double(num2)!)
@@ -87,6 +85,7 @@ class ViewController: UIViewController {
                 num1 = String(Double(num1)! * Double(num2)!)
             }
         }
+        label.text = num1
     }
     
     
