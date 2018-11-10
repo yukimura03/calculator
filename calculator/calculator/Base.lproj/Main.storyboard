@@ -193,6 +193,10 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="button_division" destination="4uP-Bb-fWC" id="rxE-CK-a6q"/>
+                        <outlet property="button_minus" destination="3rJ-8V-Boq" id="Nog-MA-hZU"/>
+                        <outlet property="button_multiply" destination="zyM-CX-uWR" id="xJV-qG-19e"/>
+                        <outlet property="button_plus" destination="Umc-rp-RA2" id="wC1-GG-e62"/>
                         <outlet property="label" destination="4bt-LH-n59" id="Rxu-St-TjR"/>
                         <outlet property="num1_label" destination="tDo-ED-tQr" id="bsC-iz-01R"/>
                         <outlet property="num2_label" destination="NtC-Xn-oVt" id="6a2-Ba-V8T"/>

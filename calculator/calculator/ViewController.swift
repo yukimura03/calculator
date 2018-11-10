@@ -16,6 +16,13 @@ class ViewController: UIViewController {
     @IBOutlet weak var num2_label: UILabel!
     //ここまで
     
+    
+    @IBOutlet weak var button_division: UIButton!
+    @IBOutlet weak var button_multiply: UIButton!
+    @IBOutlet weak var button_minus: UIButton!
+    @IBOutlet weak var button_plus: UIButton!
+    
+    
     @IBOutlet weak var label: UILabel!
     
     var num1:String = ""
@@ -27,19 +34,34 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        label.text = ""
+        label.text = "0"
     }
 
     @IBAction func tapAC(_ sender: Any) {
         num1 = ""
         num2 = ""
         sign = ""
-        label.text = ""
+        label.text = "0"
+        
+        //後で消すとこ
+        num2_label.text = num2
+        num1_label.text = num1
+        sign_label.text = sign
+        //ここまで
+        
     }
 
     
     @IBAction func tapNum(_ sender: UIButton) {
+
         if selectSign == true {
+            //記号の色を白にする
+            button_plus.backgroundColor = UIColor.white
+            button_minus.backgroundColor = UIColor.white
+            button_multiply.backgroundColor = UIColor.white
+            button_division.backgroundColor = UIColor.white
+            
+            //num1をリセットしてから数字を入れる準備
             num1 = ""
             selectSign = false
         }
@@ -47,21 +69,43 @@ class ViewController: UIViewController {
         num1 += sender.titleLabel!.text!
         num1_label.text = num1
         label.text = num1
-        
-        //num1 = String(Double(num1)! + Double(num2)!)
+
+    }
+    
+    //算術記号に合わせて計算する
+    func calc() {
+        if num2 == "" {
+            num2 = num1
+        } else {
+            if sign == "+" {
+                num1 = String(Double(num1)! + Double(num2)!)
+            } else if sign == "-" {
+                num1 = String(Double(num1)! - Double(num2)!)
+            } else if sign == "÷" {
+                num1 = String(Double(num1)! / Double(num2)!)
+            } else if sign == "×" {
+                num1 = String(Double(num1)! * Double(num2)!)
+            }
+        }
     }
     
     
     @IBAction func tapCalcSign(_ sender: UIButton) {
-        if num2 == "" {
-            num2 = "0"
-        }
         //signに押した算術記号を代入
         sign = sender.titleLabel!.text!
         selectSign = true //いま代入したよ！
         
-        num2 = String(Double(num1)! + Double(num2)!)
-
+        //ボタンの色を変える
+        if selectSign == true {
+            button_plus.backgroundColor = UIColor.white
+            button_minus.backgroundColor = UIColor.white
+            button_multiply.backgroundColor = UIColor.white
+            button_division.backgroundColor = UIColor.white
+        }
+        sender.backgroundColor = UIColor.blue
+        
+        calc()
+        
         //後で消すとこ
         num2_label.text = num2
         num1_label.text = num1
@@ -72,7 +116,7 @@ class ViewController: UIViewController {
     
     @IBAction func tapEqual(_ sender: Any) {
         
-        num1 = String(Double(num1)! + Double(num2)!)
+        calc()
         label.text = num1
         
         //後で消すとこ
