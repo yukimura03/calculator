@@ -90,9 +90,14 @@ class ViewController: UIViewController {
     
     
     @IBAction func tapCalcSign(_ sender: UIButton) {
-        //signに押した算術記号を代入
-        sign = sender.titleLabel!.text!
-        selectSign = true //いま代入したよ！
+        //num1が空欄(=計算機を開いたばかりorACしたばっかり）だったらnum2をnum1にコピー
+        if num1 == "" {
+            num1 = num2
+        }
+        
+        sign = sender.titleLabel!.text! //signに押した算術記号を代入
+        num2 = num1 //記号を押したらnum2にnum1（labelに表示されてる数字）を代入
+        selectSign = true //記号押したよ！
         
         //ボタンの色を変える
         if selectSign == true {
@@ -102,8 +107,6 @@ class ViewController: UIViewController {
             button_division.backgroundColor = UIColor.white
         }
         sender.backgroundColor = UIColor.blue
-        
-        calc()
         
         //後で消すとこ
         num2_label.text = num2
@@ -126,9 +129,5 @@ class ViewController: UIViewController {
         
         
     }
-
-    
-//num1 + num2 = answer
-    
 }
 
