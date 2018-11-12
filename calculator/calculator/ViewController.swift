@@ -32,6 +32,7 @@ class ViewController: UIViewController {
     var Calculated:Bool = false
     var sign_num:Bool = false
     var end:Bool = false
+    var display:String = "num1"
     
     
     override func viewDidLoad() {
@@ -40,6 +41,7 @@ class ViewController: UIViewController {
         num2 = "0"
         sign = ""
         label.text = num1
+        display = "num1"
         button_white()
         selectSign = false
         Calculated = false
@@ -80,12 +82,17 @@ class ViewController: UIViewController {
             button_white()
             sign_num = true
             //num2をリセットしてから数字を入れる準備
-            num2 = ""
+            if num2 == "-0.0" {
+                num2 = "-"
+            } else {
+                num2 = ""
+            }
         }
         
         num2 += sender.titleLabel!.text!
         num2_label.text = num2
         label.text = num2
+        display = "num2"
     }
     
     //算術記号に合わせて計算する
@@ -99,7 +106,6 @@ class ViewController: UIViewController {
         } else if sign == "×" {
             num1 = String(Double(num1)! * Double(num2)!)
         }
-        label.text = num1
     }
     
     
@@ -131,6 +137,8 @@ class ViewController: UIViewController {
         } else {
             num1 = num2
         }
+        label.text = num2
+        display = "num2"
         
         
         //後で消すとこ
@@ -139,6 +147,25 @@ class ViewController: UIViewController {
         sign_label.text = sign
         //ここまで
 
+    }
+    
+    @IBAction func plus_minus(_ sender: Any) {
+        if selectSign == true {
+            num2 = "0"
+        }
+            if display == "num1" {
+                num1 = String(Double(num1)! * -1)
+                label.text = num1
+            } else {
+                num2 = String(Double(num2)! * -1)
+                label.text = num2
+            }
+        
+        //後で消すとこ
+        num2_label.text = num2
+        num1_label.text = num1
+        sign_label.text = sign
+        //ここまで
     }
     
     @IBAction func tapEqual(_ sender: Any) {
