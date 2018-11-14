@@ -10,12 +10,6 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    //完成したら消すとこ
-    @IBOutlet weak var num1_label: UILabel!
-    @IBOutlet weak var sign_label: UILabel!
-    @IBOutlet weak var num2_label: UILabel!
-    //ここまで
-    
     
     @IBOutlet weak var button_division: UIButton!
     @IBOutlet weak var button_multiply: UIButton!
@@ -24,35 +18,31 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var label: UILabel!
     
-    var num1:String = "0"
-    var sign:String = ""
-    var num2:String = "0"
+    var num:String = ""
+    var numArray:Array = [Double]()
+    var sign = ""
+    var calcNum:Double = 0
+    var countOfTapSign = 0
     
-    var selectSign:Bool = false
-    var Calculated:Bool = false
-    var sign_num:Bool = false
-    var end:Bool = false
-    var display:String = "num1"
+    var signTapped:Bool = false //記号を押した
+    var Calculated:Bool = false //計算した
+    var end:Bool = false //equalを押した＝計算終了した
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        num1 = "0"
-        num2 = "0"
+        num = "0"
+        calcNum = 0
         sign = ""
-        label.text = num1
-        display = "num1"
+        countOfTapSign = 0
+        numArray = []
+        label.text = num
         button_white()
-        selectSign = false
-        Calculated = false
-        sign_num = false
-        end = false
         
-        //後で消すとこ
-        num2_label.text = num2
-        num1_label.text = num1
-        sign_label.text = sign
-        //ここまで
+        signTapped = false
+        Calculated = false
+        end = false
+
     }
     
     func button_white() {
@@ -61,7 +51,7 @@ class ViewController: UIViewController {
         button_minus.backgroundColor = UIColor.white
         button_multiply.backgroundColor = UIColor.white
         button_division.backgroundColor = UIColor.white
-        selectSign = false
+        signTapped = false
     }
 
     @IBAction func tapAC(_ sender: Any) {
@@ -70,119 +60,98 @@ class ViewController: UIViewController {
 
     
     @IBAction func tapNum(_ sender: UIButton) {
+        //もしequalを押してたら一回リセットする
         if end == true {
             viewDidLoad()
         }
-        
-        if num2 == "0" {
-            num2 = ""
+        //もしnumが0だったら一旦クリア
+        if num == "0" {
+            num = ""
         }
-
-        if selectSign == true {
+        //計算記号を押してあったら一旦クリア、計算記号押してないよーってする
+        if signTapped == true {
             button_white()
-            sign_num = true
-            //num2をリセットしてから数字を入れる準備
-            if num2 == "-0.0" {
-                num2 = "-"
-            } else {
-                num2 = ""
-            }
+            num = ""
+            signTapped = false
         }
         
-        num2 += sender.titleLabel!.text!
-        num2_label.text = num2
-        label.text = num2
-        display = "num2"
+        //numに数字を入れる
+        num += sender.titleLabel!.text!
+        
+        label.text = num
+        
     }
     
-    //算術記号に合わせて計算する
+    @IBAction func period(_ sender: Any) {
+        //ちょっと保留
+    }
+    
+    //算術記号に合わせて計算する！
     func calc() {
-        if sign == "+" {
-            num1 = String(Double(num1)! + Double(num2)!)
-        } else if sign == "-" {
-            num1 = String(Double(num1)! - Double(num2)!)
-        } else if sign == "÷" {
-            num1 = String(Double(num1)! / Double(num2)!)
-        } else if sign == "×" {
-            num1 = String(Double(num1)! * Double(num2)!)
+        if sign == "-" {
+            num = "-" + num
         }
+        numArray += [Double(num)!]
+        num = String(numArray.reduce(0){$0 + $1})
+        numArray = []
+        numArray += [Double(num)!]
+        Calculated = true //計算しました
     }
-    
     
     @IBAction func tapCalcSign(_ sender: UIButton) {
-        
+        //もしequalを押した後だったら、endを取り消して計算を続けるよ
         if end == true {
             end = false
         }
         
-        if sign_num == true {
-            calc()
-            Calculated = true
-            sign_num = false
+        if sign == "×" {
+            calcNum = Double(numArray.last!) * Double(num)!
+            numArray[numArray.count - 1] = calcNum
+            calcNum = 0
+        } else if sign == "÷" {
+            calcNum = Double(numArray.last!) / Double(num)!
+            numArray[numArray.count - 1] = calcNum
+            calcNum = 0
         }
         
-        sign = sender.titleLabel!.text! //signに押した算術記号を代入
+        //+-を押したらここまでの合計を表示する
+        //*/を押したら掛け算開始からの計算結果を表示する
         
-        //ボタンの色を変える
-        if selectSign == true {
+        if countOfTapSign != 0 {
+            if (sender.titleLabel!.text! == "+" || sender.titleLabel!.text == "-") {
+                calc()
+            }
+            label.text = String(numArray.last!)
+            
+        } else {
+            numArray += [Double(num)!]
+            label.text = num
+        }
+        
+        if signTapped == true {
             button_white()
         }
-        sender.backgroundColor = UIColor.blue
-        selectSign = true //記号押したよ！
+        sender.backgroundColor = UIColor.gray
+        signTapped = true
         
-        
-        if Calculated == true {
-            num2 = num1
-            Calculated = false
-        } else {
-            num1 = num2
-        }
-        label.text = num2
-        display = "num2"
-        
-        
-        //後で消すとこ
-        num2_label.text = num2
-        num1_label.text = num1
-        sign_label.text = sign
-        //ここまで
 
+        sign = sender.titleLabel!.text!
+        countOfTapSign += 1
     }
     
     @IBAction func plus_minus(_ sender: Any) {
-        if selectSign == true {
-            num2 = "0"
-        }
-            if display == "num1" {
-                num1 = String(Double(num1)! * -1)
-                label.text = num1
-            } else {
-                num2 = String(Double(num2)! * -1)
-                label.text = num2
-            }
-        
-        //後で消すとこ
-        num2_label.text = num2
-        num1_label.text = num1
-        sign_label.text = sign
-        //ここまで
+
+    }
+    
+    @IBAction func percent(_ sender: Any) {
+        //後でね
     }
     
     @IBAction func tapEqual(_ sender: Any) {
-        button_white()
-        
+        button_white() //ボタン白くします
         calc()
-        label.text = num1
-        sign_num = false
-        Calculated = true
-        end = true
-        
-        //後で消すとこ
-        num2_label.text = num2
-        num1_label.text = num1
-        sign_label.text = sign
-        //ここまで
-        
+        label.text = num
+        end = true //計算終了しました
         
     }
 }
