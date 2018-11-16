@@ -92,9 +92,10 @@ class ViewController: UIViewController {
             num = "-" + num
         }
         numArray += [Double(num)!]
-        num = String(numArray.reduce(0){$0 + $1})
+        calcNum = Double(numArray.reduce(0){$0 + $1})
         numArray = []
-        numArray += [Double(num)!]
+        numArray += [calcNum]
+        calcNum = 0
         Calculated = true //計算しました
     }
     
@@ -121,12 +122,10 @@ class ViewController: UIViewController {
             if (sender.titleLabel!.text! == "+" || sender.titleLabel!.text == "-") {
                 calc()
             }
-            label.text = String(numArray.last!)
-            
         } else {
             numArray += [Double(num)!]
-            label.text = num
         }
+        label.text = String(numArray.last!)
         
         if signTapped == true {
             button_white()
@@ -134,7 +133,6 @@ class ViewController: UIViewController {
         sender.backgroundColor = UIColor.gray
         signTapped = true
         
-
         sign = sender.titleLabel!.text!
         countOfTapSign += 1
     }
@@ -150,7 +148,7 @@ class ViewController: UIViewController {
     @IBAction func tapEqual(_ sender: Any) {
         button_white() //ボタン白くします
         calc()
-        label.text = num
+        label.text = String(numArray.last!)
         end = true //計算終了しました
         
     }
