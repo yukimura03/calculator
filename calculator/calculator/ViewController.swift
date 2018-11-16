@@ -16,6 +16,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var button_minus: UIButton!
     @IBOutlet weak var button_plus: UIButton!
     
+    @IBOutlet weak var button_AC: UIButton!
     @IBOutlet weak var label: UILabel!
     
     var num:String = ""
@@ -25,23 +26,16 @@ class ViewController: UIViewController {
     var countOfTapSign = 0
     var numDisprayed:String = ""
     
+    var tapNum:Bool = false
     var tapPoint:Bool = false
     var signTapped:Bool = false //記号を押した
     var Calculated:Bool = false //計算した
     var end:Bool = false //equalを押した＝計算終了した
     
-    func indicate() {
-        numDisprayed = String(numArray.last!)
-        
-        if numDisprayed.suffix(2) == ".0" {
-            label.text = String(numDisprayed.dropLast(2))
-        } else {
-            label.text = numDisprayed
-        }
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        button_AC.setTitle("AC", for: .normal)
         num = "0"
         calcNum = 0
         sign = ""
@@ -50,6 +44,7 @@ class ViewController: UIViewController {
         label.text = num
         button_white()
         
+        tapNum = false
         tapPoint = false
         signTapped = false
         Calculated = false
@@ -66,8 +61,34 @@ class ViewController: UIViewController {
         signTapped = false
     }
 
-    @IBAction func tapAC(_ sender: Any) {
-        viewDidLoad()
+    @IBAction func tapAC(_ sender: UIButton) {
+        if sender.titleLabel!.text! == "AC" {
+            viewDidLoad()
+        } else {
+            if end == false {
+                num = "0"
+                label.text = num
+            } else {
+                numArray = []
+                label.text = String(calcNum)
+                tapNum = false
+            }
+            switch sign {
+            case "+":
+                button_plus.backgroundColor = UIColor.gray
+            case "-":
+                button_minus.backgroundColor = UIColor.gray
+            case "×":
+                button_multiply.backgroundColor = UIColor.gray
+            case "÷":
+                button_division.backgroundColor = UIColor.gray
+            default:
+                break
+            }
+            signTapped = true
+            button_AC.setTitle("AC", for: .normal)
+            
+        }
     }
 
     
@@ -89,9 +110,8 @@ class ViewController: UIViewController {
         
         //numに数字を入れる
         num += sender.titleLabel!.text!
-        
         label.text = num
-        
+        button_AC.setTitle("C", for: .normal)
     }
     
     @IBAction func point(_ sender: Any) {
@@ -179,6 +199,16 @@ class ViewController: UIViewController {
         
     }
     
+    func indicate() {
+        numDisprayed = String(numArray.last!)
+        
+        if numDisprayed.suffix(2) == ".0" {
+            label.text = String(numDisprayed.dropLast(2))
+        } else {
+            label.text = numDisprayed
+        }
+    }
+    
     @IBAction func tapEqual(_ sender: Any) {
         button_white() //ボタン白くします
         if sign != "%" {
@@ -210,6 +240,8 @@ class ViewController: UIViewController {
             numArray = []
             numArray += [calcNum]
             calcNum = 0
+            
+            tapNum = false
             tapPoint = false
             Calculated = true //計算しました
             indicate()//答えを表示する
