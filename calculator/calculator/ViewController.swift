@@ -23,11 +23,21 @@ class ViewController: UIViewController {
     var sign = ""
     var calcNum:Double = 0
     var countOfTapSign = 0
+    var numDisprayed:String = ""
     
     var signTapped:Bool = false //記号を押した
     var Calculated:Bool = false //計算した
     var end:Bool = false //equalを押した＝計算終了した
     
+    func indicate() {
+        numDisprayed = String(numArray.last!)
+        
+        if numDisprayed.suffix(2) == ".0" {
+            label.text = String(numDisprayed.dropLast(2))
+        } else {
+            label.text = numDisprayed
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -138,7 +148,12 @@ class ViewController: UIViewController {
     }
     
     @IBAction func plus_minus(_ sender: Any) {
-
+        if num.prefix(1) == "-" {
+            num = String(num.dropFirst())
+        } else {
+            num = "-" + num
+        }
+        label.text = num
     }
     
     @IBAction func percent(_ sender: Any) {
@@ -147,8 +162,31 @@ class ViewController: UIViewController {
     
     @IBAction func tapEqual(_ sender: Any) {
         button_white() //ボタン白くします
-        calc()
-        label.text = String(numArray.last!)
+        
+        if sign == "×" {
+            calcNum = Double(numArray.last!) * Double(num)!
+            numArray[numArray.count - 1] = calcNum
+            calcNum = 0
+        } else if sign == "÷" {
+            calcNum = Double(numArray.last!) / Double(num)!
+            numArray[numArray.count - 1] = calcNum
+            calcNum = 0
+        }
+        
+        if sign == "-" {
+            num = "-" + num
+        }
+        
+        if (sign == "+" || sign == "-") {
+            numArray += [Double(num)!]
+        }
+        
+        calcNum = Double(numArray.reduce(0){$0 + $1})
+        numArray = []
+        numArray += [calcNum]
+        calcNum = 0
+        Calculated = true //計算しました
+        indicate()//答えを表示する
         end = true //計算終了しました
         
     }
