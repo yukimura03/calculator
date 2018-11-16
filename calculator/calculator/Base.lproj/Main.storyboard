@@ -40,7 +40,7 @@
                                 </constraints>
                                 <state key="normal" title="7"/>
                                 <connections>
-                                    <action selector="tapNum:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Rth-gA-D8y"/>
+                                    <action selector="imputNum:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hu4-FI-X0W"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D4b-Mv-Csy">
@@ -50,7 +50,7 @@
                                 </constraints>
                                 <state key="normal" title="4"/>
                                 <connections>
-                                    <action selector="tapNum:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ynB-N0-GX9"/>
+                                    <action selector="imputNum:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Xfl-Kk-xFo"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qum-S1-4Ub">
@@ -60,7 +60,7 @@
                                 </constraints>
                                 <state key="normal" title="1"/>
                                 <connections>
-                                    <action selector="tapNum:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EG0-3R-xuh"/>
+                                    <action selector="imputNum:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Szj-Bc-CNO"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A7i-o6-SP7">
@@ -70,21 +70,21 @@
                                 </constraints>
                                 <state key="normal" title="0"/>
                                 <connections>
-                                    <action selector="tapNum:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hWn-sN-Kus"/>
+                                    <action selector="imputNum:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Hr5-8k-ySs"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z3Z-hA-FdA">
                                 <rect key="frame" x="119" y="521" width="30" height="30"/>
                                 <state key="normal" title="2"/>
                                 <connections>
-                                    <action selector="tapNum:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3bU-ry-icb"/>
+                                    <action selector="imputNum:" destination="BYZ-38-t0r" eventType="touchUpInside" id="xd5-jP-N3m"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kvx-AS-O1y">
                                 <rect key="frame" x="222" y="521" width="30" height="30"/>
                                 <state key="normal" title="3"/>
                                 <connections>
-                                    <action selector="tapNum:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hnE-z0-fCz"/>
+                                    <action selector="imputNum:" destination="BYZ-38-t0r" eventType="touchUpInside" id="RtH-Eo-FpJ"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Umc-rp-RA2">
@@ -98,7 +98,7 @@
                                 <rect key="frame" x="222" y="603" width="30" height="30"/>
                                 <state key="normal" title="."/>
                                 <connections>
-                                    <action selector="period:" destination="BYZ-38-t0r" eventType="touchUpInside" id="X5u-1T-pPh"/>
+                                    <action selector="point:" destination="BYZ-38-t0r" eventType="touchUpInside" id="DcM-fV-5zw"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="phH-FI-Qrg">
@@ -112,14 +112,14 @@
                                 <rect key="frame" x="119" y="428" width="30" height="30"/>
                                 <state key="normal" title="5"/>
                                 <connections>
-                                    <action selector="tapNum:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Env-zo-1sX"/>
+                                    <action selector="imputNum:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Jr1-90-lyp"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lha-0M-M0w">
                                 <rect key="frame" x="222" y="428" width="30" height="30"/>
                                 <state key="normal" title="6"/>
                                 <connections>
-                                    <action selector="tapNum:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Pmq-LI-Y1S"/>
+                                    <action selector="imputNum:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ibE-de-alx"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3rJ-8V-Boq">
@@ -133,14 +133,14 @@
                                 <rect key="frame" x="119" y="351" width="30" height="30"/>
                                 <state key="normal" title="8"/>
                                 <connections>
-                                    <action selector="tapNum:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cba-go-UcA"/>
+                                    <action selector="imputNum:" destination="BYZ-38-t0r" eventType="touchUpInside" id="sg2-1C-IZI"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cwI-ta-86A">
                                 <rect key="frame" x="222" y="351" width="30" height="30"/>
                                 <state key="normal" title="9"/>
                                 <connections>
-                                    <action selector="tapNum:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3G4-ni-oaR"/>
+                                    <action selector="imputNum:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pm2-wH-2Fi"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zyM-CX-uWR">

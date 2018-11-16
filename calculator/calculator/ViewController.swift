@@ -25,6 +25,7 @@ class ViewController: UIViewController {
     var countOfTapSign = 0
     var numDisprayed:String = ""
     
+    var tapPoint:Bool = false
     var signTapped:Bool = false //記号を押した
     var Calculated:Bool = false //計算した
     var end:Bool = false //equalを押した＝計算終了した
@@ -49,6 +50,7 @@ class ViewController: UIViewController {
         label.text = num
         button_white()
         
+        tapPoint = false
         signTapped = false
         Calculated = false
         end = false
@@ -69,7 +71,7 @@ class ViewController: UIViewController {
     }
 
     
-    @IBAction func tapNum(_ sender: UIButton) {
+    @IBAction func imputNum(_ sender: UIButton) {
         //もしequalを押してたら一回リセットする
         if end == true {
             viewDidLoad()
@@ -92,8 +94,12 @@ class ViewController: UIViewController {
         
     }
     
-    @IBAction func period(_ sender: Any) {
-        //ちょっと保留
+    @IBAction func point(_ sender: Any) {
+        if tapPoint == false {
+            num += "."
+            tapPoint = true
+            label.text = num
+        }
     }
     
     //算術記号に合わせて計算する！
@@ -131,11 +137,12 @@ class ViewController: UIViewController {
         if countOfTapSign != 0 {
             if (sender.titleLabel!.text! == "+" || sender.titleLabel!.text == "-") {
                 calc()
+                indicate()
             }
         } else {
             numArray += [Double(num)!]
+            indicate()
         }
-        label.text = String(numArray.last!)
         
         if signTapped == true {
             button_white()
@@ -143,6 +150,7 @@ class ViewController: UIViewController {
         sender.backgroundColor = UIColor.gray
         signTapped = true
         
+        tapPoint = false
         sign = sender.titleLabel!.text!
         countOfTapSign += 1
     }
@@ -157,38 +165,56 @@ class ViewController: UIViewController {
     }
     
     @IBAction func percent(_ sender: Any) {
-        //後でね
+        calcNum = Double(num)! / 100
+        
+        if sign == "" {//8%←このタイミング
+            end = true
+            sign = "%"
+        } else if (sign == "+" || sign == "-") {//500+8%←このタイミング
+            calcNum = numArray.last! * calcNum
+        }
+        label.text = String(calcNum)
+        num = String(calcNum)
+        calcNum = 0
+        
     }
     
     @IBAction func tapEqual(_ sender: Any) {
         button_white() //ボタン白くします
+        if sign != "%" {
+            
+            if sign == "×" {
+                calcNum = Double(numArray.last!) * Double(num)!
+                numArray[numArray.count - 1] = calcNum
+                calcNum = 0
+            } else if sign == "÷" {
+                calcNum = Double(numArray.last!) / Double(num)!
+                numArray[numArray.count - 1] = calcNum
+                calcNum = 0
+            }
+
+            if sign == "-" {
+                if num.prefix(1) == "-" {
+                    num = String(num.dropFirst())
+                } else {
+                    num = "-" + num
+                }
+                sign = "+"
+            }
         
-        if sign == "×" {
-            calcNum = Double(numArray.last!) * Double(num)!
-            numArray[numArray.count - 1] = calcNum
+            if (sign == "+" || sign == "-") {
+                numArray += [Double(num)!]
+            }
+        
+            calcNum = Double(numArray.reduce(0){$0 + $1})
+            numArray = []
+            numArray += [calcNum]
             calcNum = 0
-        } else if sign == "÷" {
-            calcNum = Double(numArray.last!) / Double(num)!
-            numArray[numArray.count - 1] = calcNum
-            calcNum = 0
+            tapPoint = false
+            Calculated = true //計算しました
+            indicate()//答えを表示する
+            end = true //計算終了しました
         }
-        
-        if sign == "-" {
-            num = "-" + num
-        }
-        
-        if (sign == "+" || sign == "-") {
-            numArray += [Double(num)!]
-        }
-        
-        calcNum = Double(numArray.reduce(0){$0 + $1})
-        numArray = []
-        numArray += [calcNum]
-        calcNum = 0
-        Calculated = true //計算しました
-        indicate()//答えを表示する
-        end = true //計算終了しました
-        
     }
 }
 
