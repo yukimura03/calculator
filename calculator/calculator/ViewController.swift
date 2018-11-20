@@ -11,11 +11,55 @@ import UIKit
 class ViewController: UIViewController {
     
     
+    //答えを表示するラベル
+    @IBOutlet weak var label: UILabel!
+ 
+    //計算記号の色変える用セット
     @IBOutlet weak var button_division: UIButton!
     @IBOutlet weak var button_multiply: UIButton!
     @IBOutlet weak var button_minus: UIButton!
     @IBOutlet weak var button_plus: UIButton!
     
+    func buttonColor_reset(){
+        button_division.backgroundColor = UIColor.white
+        button_multiply.backgroundColor = UIColor.white
+        button_minus.backgroundColor = UIColor.white
+        button_plus.backgroundColor = UIColor.white
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        label.text = "0"
+    }
+    
+    @IBAction func tap_clear(_ sender: UIButton) {
+    }
+    
+    @IBAction func input_num(_ sender: UIButton) {
+    }
+    
+    @IBAction func tap_point(_ sender: Any) {
+    }
+    
+    @IBAction func tap_plusOrMinus(_ sender: Any) {
+    }
+    
+    @IBAction func input_calcSymbol(_ sender: UIButton) {
+    }
+    
+    @IBAction func tap_percent(_ sender: Any) {
+    }
+    
+    @IBAction func tap_equal(_ sender: Any) {
+    }
+    
+    /*
+   
+    @IBOutlet weak var button_division: UIButton!
+    @IBOutlet weak var button_multiply: UIButton!
+    @IBOutlet weak var button_minus: UIButton!
+    @IBOutlet weak var button_plus: UIButton!
+ 
     @IBOutlet weak var button_AC: UIButton!
     @IBOutlet weak var label: UILabel!
     
@@ -25,6 +69,7 @@ class ViewController: UIViewController {
     var calcNum:Double = 0
     var countOfTapSign = 0
     var numDisprayed:String = ""
+    var minus:String = ""
     
     var tapNum:Bool = false
     var tapPoint:Bool = false
@@ -51,7 +96,7 @@ class ViewController: UIViewController {
         end = false
 
     }
-    
+ 
     func button_white() {
         //記号の色を白にする
         button_plus.backgroundColor = UIColor.white
@@ -69,8 +114,10 @@ class ViewController: UIViewController {
                 num = "0"
                 label.text = num
             } else {
+                end = false
                 numArray = []
-                label.text = String(calcNum)
+                numArray += [Double(num)!]
+                label.text = "0"
                 tapNum = false
             }
             switch sign {
@@ -91,7 +138,7 @@ class ViewController: UIViewController {
         }
     }
 
-    
+ 
     @IBAction func imputNum(_ sender: UIButton) {
         //もしequalを押してたら一回リセットする
         if end == true {
@@ -110,7 +157,7 @@ class ViewController: UIViewController {
         
         //numに数字を入れる
         num += sender.titleLabel!.text!
-        label.text = num
+        label.text = minus + num
         button_AC.setTitle("C", for: .normal)
     }
     
@@ -121,20 +168,28 @@ class ViewController: UIViewController {
             label.text = num
         }
     }
-    
+ 
     //算術記号に合わせて計算する！
     func calc() {
         if sign == "-" {
-            num = "-" + num
+            if minus == "-" {
+                minus = ""
+            } else {
+                minus = "-"
+            }
         }
-        numArray += [Double(num)!]
+        if minus == "-" {
+            numArray += [Double("-" + num)!]
+        } else {
+            numArray += [Double(num)!]
+        }
         calcNum = Double(numArray.reduce(0){$0 + $1})
         numArray = []
         numArray += [calcNum]
         calcNum = 0
         Calculated = true //計算しました
     }
-    
+ 
     @IBAction func tapCalcSign(_ sender: UIButton) {
         //もしequalを押した後だったら、endを取り消して計算を続けるよ
         if end == true {
@@ -150,20 +205,26 @@ class ViewController: UIViewController {
             numArray[numArray.count - 1] = calcNum
             calcNum = 0
         }
-        
+ 
         //+-を押したらここまでの合計を表示する
-        //*/を押したら掛け算開始からの計算結果を表示する
-        
+        //を押したら掛け算開始からの計算結果を表示する
+ 
         if countOfTapSign != 0 {
             if (sender.titleLabel!.text! == "+" || sender.titleLabel!.text == "-") {
                 calc()
                 indicate()
+            } else {
+                if minus == "-" {
+                    numArray += [Double("-" + num)!]
+                } else {
+                    numArray += [Double(num)!]
+                }
             }
         } else {
             numArray += [Double(num)!]
             indicate()
         }
-        
+ 
         if signTapped == true {
             button_white()
         }
@@ -176,12 +237,15 @@ class ViewController: UIViewController {
     }
     
     @IBAction func plus_minus(_ sender: Any) {
-        if num.prefix(1) == "-" {
-            num = String(num.dropFirst())
-        } else {
-            num = "-" + num
+        if signTapped == true {
+            num = "0"
         }
-        label.text = num
+        if minus == "-" {
+            minus = ""
+        } else {
+            minus = "-"
+        }
+        label.text = minus + num
     }
     
     @IBAction func percent(_ sender: Any) {
@@ -224,16 +288,17 @@ class ViewController: UIViewController {
             }
 
             if sign == "-" {
-                if num.prefix(1) == "-" {
-                    num = String(num.dropFirst())
+                if minus == "-" {
+                    minus = ""
                 } else {
-                    num = "-" + num
+                    minus = "-"
                 }
-                sign = "+"
             }
         
-            if (sign == "+" || sign == "-") {
+            if sign == "+" {
                 numArray += [Double(num)!]
+            } else if sign == "-" {
+                numArray += [Double("-" + num)!]
             }
         
             calcNum = Double(numArray.reduce(0){$0 + $1})
@@ -248,5 +313,6 @@ class ViewController: UIViewController {
             end = true //計算終了しました
         }
     }
+ */
 }
 
